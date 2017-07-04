@@ -4,12 +4,12 @@ namespace AppBundle\Util;
 
 class ReadFile
 {
-    public function loadJsonFile($jsonFile){
+    public static function loadJsonFile($jsonFile){
         $loadJson = file_get_contents($jsonFile);
 
         return json_decode($loadJson, true);
     }
-    public function loadCsvFile($csvFile){
+    public static function loadCsvFile($csvFile){
 
         $content = array();
         $header = [];
