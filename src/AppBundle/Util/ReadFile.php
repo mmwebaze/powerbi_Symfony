@@ -2,41 +2,40 @@
 namespace AppBundle\Util;
 
 
-class ReadFile
-{
-    public static function loadJsonFile($jsonFile){
-        $loadJson = file_get_contents($jsonFile);
+class ReadFile {
+  public static function loadJsonFile($jsonFile) {
+    $loadJson = file_get_contents($jsonFile);
 
-        return json_decode($loadJson, true);
-    }
-    public static function loadCsvFile($csvFile){
+    return json_decode($loadJson, true);
+  }
 
-        $content = array();
-        $header = [];
+  public static function loadCsvFile($csvFile) {
 
-        if (file_exists($csvFile) == 1){
+    $content = array();
+    $header = [];
 
-            $file = fopen($csvFile, "r");
-            $row = 0;
+    if (file_exists($csvFile) == 1) {
 
-            while(($line = fgetcsv($file)) !== false){
+      $file = fopen($csvFile, "r");
+      $row = 0;
 
-                if ($row == 0){
-                    foreach ($line as $key => $value){
-                        $header[$key] = $value;
-                    }
-                }
-                else{
-                    $temp = [];
-                    foreach ($line as $key => $value){
-                        $temp[$header[$key]] = $value;
-                    }
-                    array_push($content, $temp);
-                }
-                $row++;
-            }
-            fclose($file);
+      while (($line = fgetcsv($file)) !== false) {
+
+        if ($row == 0) {
+          foreach ($line as $key => $value) {
+            $header[$key] = $value;
+          }
+        } else {
+          $temp = [];
+          foreach ($line as $key => $value) {
+            $temp[$header[$key]] = $value;
+          }
+          array_push($content, $temp);
         }
-        return $content;
+        $row++;
+      }
+      fclose($file);
     }
+    return $content;
+  }
 }
